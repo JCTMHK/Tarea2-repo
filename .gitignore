@@ -1,3 +1,4 @@
 .nextflow/
 *.html
 .nextflow.log*
+DATA/
