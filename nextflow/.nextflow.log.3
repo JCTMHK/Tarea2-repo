@@ -1,0 +1,75 @@
+Jul-11 22:40:45.697 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main.nf config local
+Jul-11 22:40:45.838 [main] DEBUG nextflow.cli.CmdRun - N E X T F L O W  ~  version 25.04.6
+Jul-11 22:40:45.869 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/jseba/.nextflow/plugins; core-plugins: nf-amazon@2.15.0,nf-azure@1.16.0,nf-cloudcache@0.4.3,nf-codecommit@0.2.3,nf-console@1.2.1,nf-google@1.21.1,nf-k8s@1.0.0,nf-tower@1.11.4,nf-wave@1.12.1
+Jul-11 22:40:45.902 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Jul-11 22:40:45.904 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Jul-11 22:40:45.909 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.12.0 in 'deployment' mode
+Jul-11 22:40:45.926 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Jul-11 22:40:45.961 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /home/jseba/Documents/UTEM/semester_3/tap/nextflow-test/nextflow.config
+Jul-11 22:40:45.966 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/jseba/Documents/UTEM/semester_3/tap/nextflow-test/nextflow.config
+Jul-11 22:40:46.022 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /home/jseba/.nextflow/secrets/store.json
+Jul-11 22:40:46.029 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@3bc735b3] - activable => nextflow.secret.LocalSecretsProvider@3bc735b3
+Jul-11 22:40:46.040 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Jul-11 22:40:46.815 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declaration
+Jul-11 22:40:46.836 [main] DEBUG nextflow.cli.CmdRun - Launching `main.nf` [shrivelled_lamport] DSL2 - revision: 073b6b9bfb
+Jul-11 22:40:46.838 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Jul-11 22:40:46.839 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Jul-11 22:40:46.914 [main] DEBUG nextflow.Session - Session UUID: 45af695e-869a-4961-b82c-f85ff9c2f5a5
+Jul-11 22:40:46.915 [main] DEBUG nextflow.Session - Run name: shrivelled_lamport
+Jul-11 22:40:46.916 [main] DEBUG nextflow.Session - Executor pool size: 8
+Jul-11 22:40:46.928 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Jul-11 22:40:46.938 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=24; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Jul-11 22:40:46.967 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 25.04.6 build 5954
+  Created: 01-07-2025 11:27 UTC (07:27 CLST)
+  System: Linux 6.8.0-60-generic
+  Runtime: Groovy 4.0.26 on OpenJDK 64-Bit Server VM 17.0.15+6-Ubuntu-0ubuntu122.04
+  Encoding: UTF-8 (UTF-8)
+  Process: 60270@jseba-ThinkPad-T480 [127.0.1.1]
+  CPUs: 8 - Mem: 15.4 GB (2.5 GB) - Swap: 2 GB (2 GB)
+Jul-11 22:40:47.002 [main] DEBUG nextflow.Session - Work-dir: /home/jseba/Documents/UTEM/semester_3/tap/nextflow-test/work [ext2/ext3]
+Jul-11 22:40:47.003 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/jseba/Documents/UTEM/semester_3/tap/nextflow-test/bin
+Jul-11 22:40:47.017 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Jul-11 22:40:47.031 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Jul-11 22:40:47.063 [main] DEBUG nextflow.Session - Observer factory (v2): LinObserverFactory
+Jul-11 22:40:47.103 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Jul-11 22:40:47.116 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 9; maxThreads: 1000
+Jul-11 22:40:47.187 [main] DEBUG nextflow.Session - Session start
+Jul-11 22:40:47.518 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Jul-11 22:40:47.662 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Jul-11 22:40:47.663 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Jul-11 22:40:47.672 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Jul-11 22:40:47.680 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=8; memory=15.4 GB; capacity=8; pollInterval=100ms; dumpInterval=5m
+Jul-11 22:40:47.684 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Jul-11 22:40:47.723 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'process_saludo': maxForks=0; fair=false; array=0
+Jul-11 22:40:47.847 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Jul-11 22:40:47.847 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Jul-11 22:40:47.849 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'esperar_tiempo': maxForks=0; fair=false; array=0
+Jul-11 22:40:47.856 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: esperar_tiempo, process_saludo
+Jul-11 22:40:47.861 [main] DEBUG nextflow.Session - Igniting dataflow network (2)
+Jul-11 22:40:47.862 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > process_saludo
+Jul-11 22:40:47.863 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > esperar_tiempo
+Jul-11 22:40:47.864 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_bd5825d7faac15c3: /home/jseba/Documents/UTEM/semester_3/tap/nextflow-test/main.nf
+Jul-11 22:40:47.865 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Jul-11 22:40:47.865 [main] DEBUG nextflow.Session - Session await
+Jul-11 22:40:48.138 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Jul-11 22:40:48.141 [Task submitter] INFO  nextflow.Session - [b9/e09968] Submitted process > process_saludo
+Jul-11 22:40:48.163 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Jul-11 22:40:48.164 [Task submitter] INFO  nextflow.Session - [f4/06fbb9] Submitted process > esperar_tiempo (espera_60s)
+Jul-11 22:40:48.172 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: process_saludo; status: COMPLETED; exit: 0; error: -; workDir: /home/jseba/Documents/UTEM/semester_3/tap/nextflow-test/work/b9/e099687478cf29c4c613bad83ca7e8]
+Jul-11 22:40:48.174 [Task monitor] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'TaskFinalizer' minSize=10; maxSize=24; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Jul-11 22:40:52.949 [SIGINT handler] DEBUG nextflow.Session - Session aborted -- Cause: SIGINT
+Jul-11 22:40:52.968 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local) - terminating tasks monitor poll loop
+Jul-11 22:40:52.974 [SIGINT handler] DEBUG nextflow.Session - The following nodes are still active:
+  [operator] view
+
+Jul-11 22:40:52.981 [main] DEBUG nextflow.Session - Session await > all processes finished
+Jul-11 22:40:52.981 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Jul-11 22:40:52.989 [main] WARN  n.processor.TaskPollingMonitor - Killing running tasks (1)
+Jul-11 22:40:52.997 [main] DEBUG n.executor.local.LocalTaskHandler - Unable to kill esperar_tiempo (espera_60s) -- command: kill -TERM 60384; exit: 1 
+ bash: line 1: kill: (60384) - No such process
+
+Jul-11 22:40:53.002 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=1; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=1; succeedDuration=7ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=1 GB; ]
+Jul-11 22:40:53.071 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Jul-11 22:40:53.093 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
