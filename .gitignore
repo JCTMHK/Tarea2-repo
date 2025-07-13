@@ -4,3 +4,6 @@
 DATA/
 RESULTS/
 work/
+*.pkl
+*.csv
+__pycache__/

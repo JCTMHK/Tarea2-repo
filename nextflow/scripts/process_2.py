@@ -30,22 +30,29 @@ import re
 
 # Implementation 2
 # Describes only file
-print(f"File,NumSeq,TotalSeqLen,TotalGC-Percent")
-for file in os.listdir("../DATA"):
-    curFile=SeqIO.to_dict(SeqIO.parse(f"../DATA/{file}", "fasta"))
-    num_seq=len(curFile)
-    totalSeqLen=0
-    gcSum=0
-    count=1
-    for key in curFile:
-            seqLen=len(curFile[key].seq)
-            gCon = len(re.findall("G", str(curFile[key].seq),re.IGNORECASE))
-            cCon = len(re.findall("C", str(curFile[key].seq),re.IGNORECASE))
-            gcSum+=(gCon+cCon)
-            GCPercent=gc_fraction(curFile[key].seq)*100
-            totalSeqLen+=seqLen
-    totalGC=(gcSum/totalSeqLen)*100
-    print(f"{file},{num_seq},{totalSeqLen},{totalGC:.2f}")
+
+
+with open("descritions.csv", "w") as f:
+    f.write(f"File,NumSeq,TotalSeqLen,TotalGC-Percent\n")
+    # print(f"File,NumSeq,TotalSeqLen,TotalGC-Percent")
+    for file in os.listdir("../DATA"):
+        curFile=SeqIO.to_dict(SeqIO.parse(f"../DATA/{file}", "fasta"))
+        num_seq=len(curFile)
+        totalSeqLen=0
+        gcSum=0
+        count=1
+        for key in curFile:
+                seqLen=len(curFile[key].seq)
+                gCon = len(re.findall("G", str(curFile[key].seq),re.IGNORECASE))
+                cCon = len(re.findall("C", str(curFile[key].seq),re.IGNORECASE))
+                gcSum+=(gCon+cCon)
+                GCPercent=gc_fraction(curFile[key].seq)*100
+                totalSeqLen+=seqLen
+        totalGC=(gcSum/totalSeqLen)*100
+        # Print or write to file
+        # print(f"{file},{num_seq},{totalSeqLen},{totalGC:.2f}")
+        f.write(f"{file},{num_seq},{totalSeqLen},{totalGC:.2f}\n")
+
 
 
 
@@ -66,3 +73,5 @@ for file in os.listdir("../DATA"):
 #     totalGC=(gcKmerSum/totalSeqLen)*100
    
 #     print(f"{file},{num_seq},{totalSeqLen},{totalGC:.2f}")
+
+
