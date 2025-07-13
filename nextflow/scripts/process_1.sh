@@ -3,9 +3,10 @@
 #Creates DATA directory and copies files from /home/amoya/Data_forTap
 
 seqDir="/home/amoya/Data_forTap/selected_Genomes"
-mkdir -p DATA
+dest=$1
+#mkdir -p $dest
 
 for file in $(ls $seqDir/*.fna | head -n 5);do
-	echo "cp $file DATA"
-	cp $file DATA
+	echo "Copying $file to $dest"
+	cp $file $dest
 done

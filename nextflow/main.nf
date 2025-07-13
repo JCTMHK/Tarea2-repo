@@ -2,24 +2,27 @@
 
 nextflow.enable.dsl=2
 
+params.script_dir = "scripts" // Define a parameter for your script directory
+params.data_dir = "DATA"
+params.results_dir = "RESULTS"
+
 // Variables
-def scripts_dir = "/home/jseba/Documents/UTEM/semester_3/tap/nextflow-test"
 
 // Proceso que emite un saludo por stdout
 process process_test {
-    tag "test process"
     output:
-    stdout
+	stdout
 
     script:
-	"""
-	$scripts_dir/test-script.sh
-	"""	
+    	"""
+    	${file("${params.script_dir}/test-script.sh")}
+   	"""
 }
 
 // Definir workflow y capturar salida
 workflow {
-    saludo_ch = process_test()
-    saludo_ch.view()
+	saludo_ch = process_test()
+	saludo_ch.view()
+	
 }
 
