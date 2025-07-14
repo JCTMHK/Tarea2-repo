@@ -7,3 +7,4 @@ work/
 *.pkl
 *.csv
 __pycache__/
+*.png
