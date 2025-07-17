@@ -2,6 +2,7 @@
 *.html
 .nextflow.log*
 DATA/
+DATA-source/
 RESULTS/
 work/
 *.pkl

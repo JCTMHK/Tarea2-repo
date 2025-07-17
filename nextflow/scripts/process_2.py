@@ -2,6 +2,7 @@ from Bio import SeqIO
 from Bio.SeqUtils import gc_fraction
 import os
 import re
+import sys
 ## Read sequences files
 
 # # Implementation 1
@@ -30,13 +31,15 @@ import re
 
 # Implementation 2
 # Describes only file
-
-
-with open("descritions.csv", "w") as f:
+dataDir=sys.argv[1]
+resultsDir=sys.argv[2]
+output=os.path.join(resultsDir,"descriptions.csv")
+# print(output)
+with open(output, "w") as f:
     f.write(f"File,NumSeq,TotalSeqLen,TotalGC-Percent\n")
     # print(f"File,NumSeq,TotalSeqLen,TotalGC-Percent")
-    for file in os.listdir("../DATA"):
-        curFile=SeqIO.to_dict(SeqIO.parse(f"../DATA/{file}", "fasta"))
+    for file in os.listdir(dataDir):
+        curFile=SeqIO.to_dict(SeqIO.parse(os.path.join(dataDir,file), "fasta"))
         num_seq=len(curFile)
         totalSeqLen=0
         gcSum=0
