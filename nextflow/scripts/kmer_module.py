@@ -65,10 +65,16 @@ with open(f"{outName}.pkl", 'wb') as file:
 # with open(f"{outName}_parm.pkl", 'wb') as file:
 #     pickle.dump(matches, file)
 
+# # Save selected sequences to file
+# with open(f"ref-{refSeq.name}_seq.pkl", 'wb') as file:
+#     pickle.dump(refSeq, file)
+# with open(f"query-{querySeq.name}_seq.pkl", 'wb') as file:
+#     pickle.dump(querySeq, file)
+
 # Save selected sequences to file
-with open(f"ref-{refSeq.name}_seq.pkl", 'wb') as file:
+with open(f"ref_seq.pkl", 'wb') as file:
     pickle.dump(refSeq, file)
-with open(f"query-{querySeq.name}_seq.pkl", 'wb') as file:
+with open(f"query_seq.pkl", 'wb') as file:
     pickle.dump(querySeq, file)
 
 

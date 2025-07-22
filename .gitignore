@@ -9,3 +9,4 @@ work/
 *.csv
 __pycache__/
 *.png
+python-env

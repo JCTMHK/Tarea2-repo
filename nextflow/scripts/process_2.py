@@ -32,14 +32,18 @@ import sys
 # Implementation 2
 # Describes only file
 dataDir=sys.argv[1]
-resultsDir=sys.argv[2]
-output=os.path.join(resultsDir,"descriptions.csv")
+# resultsDir=sys.argv[2]
+# output=os.path.join(resultsDir,"descriptions.csv")
+# output="descriptions.csv"
+output=sys.argv[2]
 # print(output)
 with open(output, "w") as f:
     f.write(f"File,NumSeq,TotalSeqLen,TotalGC-Percent\n")
     # print(f"File,NumSeq,TotalSeqLen,TotalGC-Percent")
-    for file in os.listdir(dataDir):
-        curFile=SeqIO.to_dict(SeqIO.parse(os.path.join(dataDir,file), "fasta"))
+    for file in dataDir.split(" "):
+#     for file in os.listdir(dataDir):
+        print(file)
+        curFile=SeqIO.to_dict(SeqIO.parse(file, "fasta"))
         num_seq=len(curFile)
         totalSeqLen=0
         gcSum=0
