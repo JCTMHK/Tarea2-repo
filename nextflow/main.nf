@@ -11,7 +11,7 @@ params.source_dir = 'DATA-source'          // Directory containing source FASTA 
 params.num_files = 2                 // Number of FASTA files to copy for analysis
 params.kmer_size = 10                 // Kmer size for matching kmer analysis
 params.results_dir = "results"       // Output directory for all results
-params.bin_size=250
+params.bin_size=30
 params.window_size=10
 params.min_thres=1
 
@@ -148,9 +148,18 @@ workflow {
     CHECK_AND_INSTALL_LIBS(params.require)
     copied_files_ch = COPY_FASTA_FILES(CHECK_AND_INSTALL_LIBS.out.completion_signal, params.num_files, params.source_dir)
 
-    
 	// copied_files_ch = COPY_FASTA_FILES(params.num_files, params.source_dir)
-	description_results_ch = DESCRIBE_FASTA_FILE(copied_files_ch.collect()).view()
+    copied_files_ch.flatten().set { single_fasta_files_channel }
+	description_results_ch=DESCRIBE_FASTA_FILE(single_fasta_files_channel)
+    
+    // Collect all description results into a map for easy lookup in later steps.
+    // The map will be: [fasta_file_name: description_file_path]
+    description_map = description_results_ch.description_output //.collectEntries()
+                        // .map { fasta_name, desc_file -> tuple(fasta_name, desc_file) }  //println "$fasta_name $desc_file" 
+                        .collect()
+                        // .collectEntries() // Transforms a channel of tuples into a map 
+                        // .set { final_description_map_ch }
+
 	// Step 4: Find matching kmers between pairs of FASTA files
     // First, collect all copied files into a list to generate unique pairs.
     fasta_pairs_ch = copied_files_ch
@@ -182,34 +191,35 @@ workflow {
 	// Pass the generated pairs and the kmer size to the kmer finding process.
     // The output is a tuple: (fasta1_name, fasta2_name, matching_kmers_file_path)
 	kmer_results_ch = FIND_MATCHING_KMERS(fasta_pairs_ch)
+
 	// kmer_results_ch = FIND_MATCHING_KMERS().view()
   // // Step 5: Generate graphics based on kmer matches and file descriptions
     // // This step requires inputs from both the kmer analysis and the description analysis.
     // // We map over the `kmer_results_ch` and use the `description_map` to find the
     // // corresponding description files for each FASTA file involved in the kmer comparison.
-    graphics_input_ch = kmer_results_ch
-        .map { fasta1_name, fasta2_name, kmer_file ->
-            // Look up the description file paths using the collected map
-            def desc1_file = description_map.get(fasta1_name)
-            def desc2_file = description_map.get(fasta2_name)
+    // graphics_input_ch = kmer_results_ch
+    //     .map { fasta1_name, fasta2_name, kmer_file ->
+    //         // Look up the description file paths using the collected map
+    //         def desc1_file = description_map.get(fasta1_name)
+    //         def desc2_file = description_map.get(fasta2_name)
 
-            // Log warnings and filter out pairs if description files are missing
-            if (!desc1_file) {
-                log.warn "Description file not found for ${fasta1_name}. Skipping graphics for this pair."
-                return null
-            }
-            if (!desc2_file) {
-                log.warn "Description file not found for ${fasta2_name}. Skipping graphics for this pair."
-                return null
-            }
-            // Return a complete tuple for the graphics process
-            return tuple(fasta1_name, fasta2_name, kmer_file, desc1_file, desc2_file)
-        }
-        .filter { it != null } // Filter out any null values (pairs for which description files were missing)
+    //         // Log warnings and filter out pairs if description files are missing
+    //         if (!desc1_file) {
+    //             log.warn "Description file not found for ${fasta1_name}. Skipping graphics for this pair."
+    //             return null
+    //         }
+    //         if (!desc2_file) {
+    //             log.warn "Description file not found for ${fasta2_name}. Skipping graphics for this pair."
+    //             return null
+    //         }
+    //         // Return a complete tuple for the graphics process
+    //         return tuple(fasta1_name, fasta2_name, kmer_file, desc1_file, desc2_file)
+    //     }
+    //     .filter { it != null } // Filter out any null values (pairs for which description files were missing)
 
     // Pass the combined input to the graphics generation process, along with the results directory.
     // GENERATE_GRAPHICS(graphics_input_ch, params.results_dir)
-    // GENERATE_GRAPHICS(kmer_results_ch,params.bin_size,params.window_size,params.min_thres).view()
+    GENERATE_GRAPHICS(kmer_results_ch,params.bin_size,params.window_size,params.min_thres)
 
     // // Final message to the user upon workflow completion
     // onWorkflowEnd {

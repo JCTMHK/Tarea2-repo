@@ -15,8 +15,8 @@ process FIND_MATCHING_KMERS {
     //   - The path to the generated text file containing matching kmers
     output:
         // stdout
-        tuple path("ref_seq.pkl"), path("query_seq.pkl"), path("ref*-v-query*-*kmers.pkl"), emit: kmer_matches
-
+        tuple path("ref_seq*.pkl"), path("query_seq*.pkl"), path("ref*-v-query*-*kmers.pkl"), emit: kmer_matches
+        // tuple path(fasta1.name), path(fasta2.name), path("${fasta1.baseName}_vs_${fasta2.baseName}_kmers.txt"), emit: kmer_matches
 
 // echo "${fasta1} ${fasta2}"
     // Script to execute
@@ -27,6 +27,7 @@ process FIND_MATCHING_KMERS {
     # and generates a text file with matching kmers.
     # echo ${fasta1} ${fasta2} ${kmer_size}
     python ${file("scripts/kmer_module.py")} ${fasta1} ${fasta2} ${kmer_size}
+
 
     """
 }

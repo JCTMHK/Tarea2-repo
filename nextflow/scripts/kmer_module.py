@@ -24,9 +24,18 @@ k=int(sys.argv[3])
 ## Select random sequence
 # print(ref.keys())
 choiceRef = random.choice(list(ref.keys()))
-refSeq =ref[choiceRef]
+refSeq = ref[choiceRef]
 choiceQuery = random.choice(list(query.keys()))
-querySeq =query[choiceQuery]
+querySeq = query[choiceQuery]
+
+
+for x in ref.keys():
+    if len(ref[x].seq) < len(refSeq.seq):
+        refSeq = ref[x]
+
+for y in query.keys():
+    if len(query[y].seq) < len(querySeq.seq):
+        querySeq = query[y]
 
 
 
@@ -71,12 +80,21 @@ with open(f"{outName}.pkl", 'wb') as file:
 # with open(f"query-{querySeq.name}_seq.pkl", 'wb') as file:
 #     pickle.dump(querySeq, file)
 
-# Save selected sequences to file
-with open(f"ref_seq.pkl", 'wb') as file:
-    pickle.dump(refSeq, file)
-with open(f"query_seq.pkl", 'wb') as file:
-    pickle.dump(querySeq, file)
+# # Save selected sequences to file
+# with open(f"ref_seq.pkl", 'wb') as file:
+#     pickle.dump(refSeq, file)
+# with open(f"query_seq.pkl", 'wb') as file:
+#     pickle.dump(querySeq, file)
 
+
+ref_base_name = os.path.basename(sys.argv[1])
+query_base_name = os.path.basename(sys.argv[2])
+
+# Save selected sequences to file
+with open(f"ref_seq_{ref_base_name}.pkl", 'wb') as file:
+    pickle.dump(refSeq, file)
+with open(f"query_seq_{query_base_name}.pkl", 'wb') as file:
+    pickle.dump(querySeq, file)
 
 
 #  ## Cython

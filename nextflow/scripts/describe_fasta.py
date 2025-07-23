@@ -57,7 +57,7 @@ def describe_fasta(fasta_file_path, output_dir):
     # Construct the output file path
     # Replace common FASTA extensions with an empty string and append '_description.json'
     base_name = os.path.basename(fasta_file_path)
-    output_file_name = base_name.replace(".fasta", "").replace(".fa", "") + "_description.json"
+    output_file_name = base_name.replace(".fna", "").replace(".fa", "") + "_description.json"
     output_path = os.path.join(output_dir, output_file_name)
 
     # Write the description data to a JSON file
@@ -76,9 +76,9 @@ if __name__ == "__main__":
         sys.exit(1) # Exit if usage is incorrect
 
     fasta_file = sys.argv[1]
-    list_files = fasta_file.split(" ")
+    # list_files = fasta_file.split(" ")
     output_directory = sys.argv[2]
-    # describe_fasta(fasta_file, output_directory)
+    describe_fasta(fasta_file, output_directory)
     # print(list_files)
-    for file in list_files:
-        describe_fasta(file, output_directory)
+    # for file in list_files:
+    #     describe_fasta(file, output_directory)

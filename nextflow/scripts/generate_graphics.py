@@ -93,7 +93,7 @@ def plot_binned_cross_recurrence(kmer_index, seq1_length, seq2_length, bin_size=
     bins_y = np.arange(0, seq1_length-k+1 + bin_size, bin_size)
     H, xedges, yedges = np.histogram2d(cols, rows, bins=(bins_x, bins_y))
 
-    H = H.T
+    # H = H.T
     plt.figure(figsize=(10, 10))
     plt.imshow(H, origin='lower', cmap='hot_r',
                extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]])
@@ -122,116 +122,115 @@ plot_binned_cross_recurrence(kmer_index, len(refSeq.seq), len(querySeq.seq), bin
 
 
 
-# # Sequence alignment
-# # ----------------
+# Sequence alignment
+# ----------------
 
-# def get_candidate_regions(common_kmers, k, seq1_len, seq2_len, window_size=5):
-#     """
-#     Define candidate regions around common k-mers.
-#     window_size: number of characters to expand on each side of k-mer.
-#     """
-#     candidate_regions = []
-#     for kmer, (pos1_list, pos2_list) in common_kmers.items():
-#         for p1 in pos1_list:
-#             for p2 in pos2_list:
-#                 start1 = max(0, p1 - window_size)
-#                 end1 = min(seq1_len, p1 + k + window_size)
-#                 start2 = max(0, p2 - window_size)
-#                 end2 = min(seq2_len, p2 + k + window_size)
+def get_candidate_regions(common_kmers, k, seq1_len, seq2_len, window_size=5):
+    """
+    Define candidate regions around common k-mers.
+    window_size: number of characters to expand on each side of k-mer.
+    """
+    candidate_regions = []
+    for kmer, (pos1_list, pos2_list) in common_kmers.items():
+        for p1 in pos1_list:
+            for p2 in pos2_list:
+                start1 = max(0, p1 - window_size)
+                end1 = min(seq1_len, p1 + k + window_size)
+                start2 = max(0, p2 - window_size)
+                end2 = min(seq2_len, p2 + k + window_size)
 
-#                 candidate_regions.append(((start1, end1), (start2, end2)))
+                candidate_regions.append(((start1, end1), (start2, end2)))
 
-#     return candidate_regions
-
-
-# def run_smith_waterman_on_regions_for_plot(seq1, seq2, candidate_regions, match_score=2, mismatch_penalty=-1, gap_penalty=-2):
-#     aligner = Align.PairwiseAligner()
-#     aligner.match_score = match_score
-#     aligner.mismatch_score = mismatch_penalty
-#     aligner.open_gap_score = gap_penalty
-#     aligner.extend_gap_score = gap_penalty
-#     aligner.mode = 'local'
-
-#     plot_data = []
-
-#     for (s1_region_start, s1_region_end), (s2_region_start, s2_region_end) in candidate_regions:
-#         sub_seq1 = seq1[s1_region_start:s1_region_end]
-#         sub_seq2 = seq2[s2_region_start:s2_region_end]
-
-#         if len(sub_seq1) == 0 or len(sub_seq2) == 0:
-#             continue
-
-#         alignments = aligner.align(sub_seq1, sub_seq2)
-
-#         if alignments:
-#             for alignment in alignments:
-#                 if alignment.score > 0:
-#                     rel_s1_start = alignment.aligned[0][0][0]
-#                     rel_s1_end = alignment.aligned[0][-1][-1]
-#                     rel_s2_start = alignment.aligned[-1][0][0]
-#                     rel_s2_end = alignment.aligned[-1][-1][-1]
-
-#                     abs_s1_start = s1_region_start + rel_s1_start
-#                     abs_s2_start = s2_region_start + rel_s2_start
-
-#                     alignment_length = max(rel_s1_end - rel_s1_start, rel_s2_end - rel_s2_start)
-
-#                     if alignment_length > 0:
-#                         plot_data.append({
-#                             'x_start': abs_s1_start,
-#                             'y_start': abs_s2_start,
-#                             'x_end': abs_s1_start + alignment_length,
-#                             'y_end': abs_s2_start + alignment_length,
-#                             'score': alignment.score,
-#                             'length': alignment_length
-#                         })
-
-#     return plot_data
+    return candidate_regions
 
 
-# def plot_similarity_dot_plot(plot_data, seq1_len, seq2_len, min_score_threshold=5,file_name="align_window.png"):
-#     plt.figure(figsize=(10, 8))
+def run_smith_waterman_on_regions_for_plot(seq1, seq2, candidate_regions, match_score=2, mismatch_penalty=-1, gap_penalty=-2):
+    aligner = Align.PairwiseAligner()
+    aligner.match_score = match_score
+    aligner.mismatch_score = mismatch_penalty
+    aligner.open_gap_score = gap_penalty
+    aligner.extend_gap_score = gap_penalty
+    aligner.mode = 'local'
 
-#     for item in plot_data:
-#         if item['score'] >= min_score_threshold:
-#             x_start = item['x_start']
-#             y_start = item['y_start']
-#             length = item['length']
-#             score = item['score']
+    plot_data = []
 
-#             color_intensity = min(1.0, score / (length * 2))
+    for (s1_region_start, s1_region_end), (s2_region_start, s2_region_end) in candidate_regions:
+        sub_seq1 = seq1[s1_region_start:s1_region_end]
+        sub_seq2 = seq2[s2_region_start:s2_region_end]
 
-#             plt.plot([x_start, x_start + length], [y_start, y_start + length],
-#                      color=(0, 0, color_intensity),
-#                      linewidth=score / 10.0 + 0.5)
+        if len(sub_seq1) == 0 or len(sub_seq2) == 0:
+            continue
 
-#     plt.xlim(0, seq1_len)
-#     plt.ylim(0, seq2_len)
-#     plt.xlabel(f"Position in sequence 1 (Length: {seq1_len})")
-#     plt.ylabel(f"Position in sequence 2 (Length: {seq2_len})")
-#     plt.title("self-similarity graph (Dot Plot) of DNA sequences")
-#     plt.gca().set_aspect('equal')
-#     plt.grid(True, linestyle='--', alpha=0.6)
+        alignments = aligner.align(sub_seq1, sub_seq2)
 
-#     def make_square_axes(ax):
-#             """Make an axes square in screen units.
-#             """
-#             ax.set_aspect(1 / ax.get_data_ratio())
+        if alignments:
+            for alignment in alignments:
+                if alignment.score > 0:
+                    rel_s1_start = alignment.aligned[0][0][0]
+                    rel_s1_end = alignment.aligned[0][-1][-1]
+                    rel_s2_start = alignment.aligned[-1][0][0]
+                    rel_s2_end = alignment.aligned[-1][-1][-1]
 
-#     make_square_axes(plt.gca())
+                    abs_s1_start = s1_region_start + rel_s1_start
+                    abs_s2_start = s2_region_start + rel_s2_start
 
-#     plt.savefig(file_name,dpi=500)
-#     # plt.show()
+                    alignment_length = max(rel_s1_end - rel_s1_start, rel_s2_end - rel_s2_start)
+
+                    if alignment_length > 0:
+                        plot_data.append({
+                            'x_start': abs_s1_start,
+                            'y_start': abs_s2_start,
+                            'x_end': abs_s1_start + alignment_length,
+                            'y_end': abs_s2_start + alignment_length,
+                            'score': alignment.score,
+                            'length': alignment_length
+                        })
+
+    return plot_data
 
 
-# # Find candidate regions for alignment
-# candidate_regions = get_candidate_regions(kmer_index, kmer_size, len(refSeq.seq), len(querySeq.seq), window_size=window_size)
+def plot_similarity_dot_plot(plot_data, seq1_len, seq2_len, min_score_threshold=5,file_name="align_window.png"):
+    plt.figure(figsize=(10, 8))
 
-# # Gets data to plot the graph
-# plot_data = run_smith_waterman_on_regions_for_plot(refSeq.seq, querySeq.seq, candidate_regions)
+    for item in plot_data:
+        if item['score'] >= min_score_threshold:
+            x_start = item['x_start']
+            y_start = item['y_start']
+            length = item['length']
+            score = item['score']
 
-# # Execute function to draw graph
-# plot_similarity_dot_plot(plot_data, len(refSeq.seq), len(querySeq.seq), min_score_threshold=min_thres)
+            color_intensity = min(1.0, score / (length * 2))
+
+            plt.plot([x_start, x_start + length], [y_start, y_start + length],
+                     color=(0, 0, color_intensity),
+                     linewidth=score / 10.0 + 0.5)
+
+    plt.xlim(0, seq1_len)
+    plt.ylim(0, seq2_len)
+    plt.xlabel(f"Position in sequence 1 (Length: {seq1_len})")
+    plt.ylabel(f"Position in sequence 2 (Length: {seq2_len})")
+    plt.title("self-similarity graph (Dot Plot) of DNA sequences")
+    plt.gca().set_aspect('equal')
+    plt.grid(True, linestyle='--', alpha=0.6)
+
+    def make_square_axes(ax):
+            """Make an axes square in screen units.
+            """
+            ax.set_aspect(1 / ax.get_data_ratio())
+
+    make_square_axes(plt.gca())
+
+    plt.savefig(file_name,dpi=500)
+    # plt.show()
+
+
+# Find candidate regions for alignment
+candidate_regions = get_candidate_regions(kmer_index, kmer_size, len(refSeq.seq), len(querySeq.seq), window_size=window_size)
+
+# Gets data to plot the graph
+plot_data = run_smith_waterman_on_regions_for_plot(refSeq.seq, querySeq.seq, candidate_regions)
+
+# Execute function to draw graph
+plot_similarity_dot_plot(plot_data, len(refSeq.seq), len(querySeq.seq), min_score_threshold=min_thres)
 
 # # # -----------------------------------------
-print("Script graphics finished peko")

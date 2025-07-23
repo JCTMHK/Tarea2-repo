@@ -12,18 +12,20 @@ process DESCRIBE_FASTA_FILE {
     //   - The path to the generated JSON description file
     output:
         // stdout
-        // tuple path(fasta_file.name), path("${fasta_file.baseName}_description.json"), emit: description_output
+        tuple val("${fasta_file.name}"), path("${fasta_file.baseName}_description.json"), emit: description_output
         // path("description.csv")
 
     // Script to execute
-    //  #python ${file("scripts/process_2.py")} "${fasta_file}" "${fasta_file.baseName}"
+    // #python ${file("scripts/process_2.py")} "${fasta_file}" "${fasta_file.baseName}"
     // python ${file("scripts/describe_fasta.py")} ${fasta_file} .
     // #python ${file("scripts/describe_fasta.py")} ${fasta_file} .
+    // python ${file("scripts/describe_fasta.py")} "${fasta_file}" .
 
     script:
     """
     # Execute the Python script to describe the FASTA file
-    # The script outputs a CSV file named after the FASTA file in the current work directory.
+    # The script outputs a JSON file named after the FASTA file in the current work directory.
+    echo "${fasta_file}"
     python ${file("scripts/describe_fasta.py")} "${fasta_file}" .
 
 
