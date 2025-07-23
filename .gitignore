@@ -1,6 +1,6 @@
 .nextflow/
 *.html
-.nextflow.log*
+.nextflow.*
 DATA/
 DATA-source/
 RESULTS/

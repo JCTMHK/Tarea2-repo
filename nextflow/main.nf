@@ -4,7 +4,7 @@ nextflow.enable.dsl=2
 
 // Variables
 params.source_dir = 'DATA-source'          // Directory containing source FASTA files
-params.num_files = 2                 // Number of FASTA files to copy for analysis
+params.num_files = 5                 // Number of FASTA files to copy for analysis
 params.kmer_size = 10                 // Kmer size for matching kmer analysis
 params.results_dir = "RESULTS"       // Output directory for all results
 params.data_dir = "DATA"
