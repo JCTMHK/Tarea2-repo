@@ -1,6 +1,5 @@
 // Define the process for checking and installing Python libraries
 process CHECK_AND_INSTALL_LIBS {
-    // Label for resource management (optional)
     label 'setup_task'
 
     input:

@@ -6,19 +6,15 @@ process FIND_MATCHING_KMERS {
     // - `kmer_size`: The size of kmers to find (integer value)
     input:
      tuple path(fasta1), path(fasta2), val(kmer_size)
-    // tuple path(fasta1), path(fasta2), val(kmer_size)
 
     // Output:
     // - A tuple containing:
-    //   - The name of the first FASTA file
-    //   - The name of the second FASTA file
+    //   - The name of the first seq file
+    //   - The name of the second seq file
     //   - The path to the generated text file containing matching kmers
     output:
-        // stdout
         tuple path("ref_seq*.pkl"), path("query_seq*.pkl"), path("ref*-v-query*-*kmers.pkl"), emit: kmer_matches
-        // tuple path(fasta1.name), path(fasta2.name), path("${fasta1.baseName}_vs_${fasta2.baseName}_kmers.txt"), emit: kmer_matches
 
-// echo "${fasta1} ${fasta2}"
     // Script to execute
     script:
     """
@@ -27,7 +23,5 @@ process FIND_MATCHING_KMERS {
     # and generates a text file with matching kmers.
     # echo ${fasta1} ${fasta2} ${kmer_size}
     python ${file("scripts/kmer_module.py")} ${fasta1} ${fasta2} ${kmer_size}
-
-
     """
 }

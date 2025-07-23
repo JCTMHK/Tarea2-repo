@@ -7,14 +7,6 @@ from timeit import default_timer as timer
 import pickle
 import sys
 
-# # Parameters
-# refSeq=sys.argv[1]
-# querySeq=sys.argv[1]
-# kmer_size=sys.argv[1]
-# min_thres=sys.argv[1]
-# window_size=sys.argv[1]
-
-print("Entering script peko")
 
 # Load the dictionaries
 # Load sequences
@@ -38,6 +30,7 @@ min_thres=int(sys.argv[6])
 # bin_size=250
 # window_size=10
 # min_thres=1
+out_name=sys.argv[3].replace(".pkl","")
 
 
 
@@ -74,7 +67,7 @@ def extract_cross_recurrence_coords(kmer_index, seq1_length, seq2_length):
                     cols_in_seq2.append(c_idx)
     return np.array(rows_in_seq1), np.array(cols_in_seq2)
 
-def plot_binned_cross_recurrence(kmer_index, seq1_length, seq2_length, bin_size=10,k=3,file_name=f"recurrence.png"):
+def plot_binned_cross_recurrence(kmer_index, seq1_length, seq2_length, bin_size=10,k=3,file_name="default"):
     """
     Bins  and plots a cross-recurrence matrix.
 
@@ -112,11 +105,11 @@ def plot_binned_cross_recurrence(kmer_index, seq1_length, seq2_length, bin_size=
             ax.set_aspect(1 / ax.get_data_ratio())
 
     make_square_axes(plt.gca())
-    plt.savefig(file_name,dpi=500)
+    plt.savefig(f"{file_name}_recurrence.png",dpi=500)
     # plt.show()
 
 
-plot_binned_cross_recurrence(kmer_index, len(refSeq.seq), len(querySeq.seq), bin_size=bin_size,k=kmer_size)
+plot_binned_cross_recurrence(kmer_index, len(refSeq.seq), len(querySeq.seq), bin_size=bin_size,k=kmer_size,file_name=out_name)
 
 # --------------------------------
 
@@ -189,7 +182,7 @@ def run_smith_waterman_on_regions_for_plot(seq1, seq2, candidate_regions, match_
     return plot_data
 
 
-def plot_similarity_dot_plot(plot_data, seq1_len, seq2_len, min_score_threshold=5,file_name="align_window.png"):
+def plot_similarity_dot_plot(plot_data, seq1_len, seq2_len, min_score_threshold=5,file_name="default"):
     plt.figure(figsize=(10, 8))
 
     for item in plot_data:
@@ -220,7 +213,7 @@ def plot_similarity_dot_plot(plot_data, seq1_len, seq2_len, min_score_threshold=
 
     make_square_axes(plt.gca())
 
-    plt.savefig(file_name,dpi=500)
+    plt.savefig(f"{file_name}_alignment.png",dpi=500)
     # plt.show()
 
 
@@ -231,6 +224,6 @@ candidate_regions = get_candidate_regions(kmer_index, kmer_size, len(refSeq.seq)
 plot_data = run_smith_waterman_on_regions_for_plot(refSeq.seq, querySeq.seq, candidate_regions)
 
 # Execute function to draw graph
-plot_similarity_dot_plot(plot_data, len(refSeq.seq), len(querySeq.seq), min_score_threshold=min_thres)
+plot_similarity_dot_plot(plot_data, len(refSeq.seq), len(querySeq.seq), min_score_threshold=min_thres, file_name=out_name)
 
 # # # -----------------------------------------
