@@ -10,7 +10,7 @@ process GENERATE_GRAPHICS {
 
     script:
     """
-    python ${file("scripts/generate_graphics.py")} ${ref_pkl} ${query_pkl} ${kmer_file} ${bin_size} ${window_size} ${min_thres}
+    python3 ${file("scripts/generate_graphics.py")} ${ref_pkl} ${query_pkl} ${kmer_file} ${bin_size} ${window_size} ${min_thres}
     cp  *.png ${file(params.results_dir)}
     """
 }
@@ -22,7 +22,7 @@ process GENERATE_GC_GRAPH {
 
     script:
     """
-    python ${file("scripts/generate_graph_descriptions.py")} ${fasta_name} ${description_file}
+    python3 ${file("scripts/generate_graph_descriptions.py")} ${fasta_name} ${description_file}
     cp  *_gc_content.png ${file(params.results_dir)}
     """
 

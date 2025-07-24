@@ -218,12 +218,12 @@ def plot_similarity_dot_plot(plot_data, seq1_len, seq2_len, min_score_threshold=
 
 
 # Find candidate regions for alignment
-candidate_regions = get_candidate_regions(kmer_index, kmer_size, len(refSeq.seq), len(querySeq.seq), window_size=window_size)
+#candidate_regions = get_candidate_regions(kmer_index, kmer_size, len(refSeq.seq), len(querySeq.seq), window_size=window_size)
 
 # Gets data to plot the graph
-plot_data = run_smith_waterman_on_regions_for_plot(refSeq.seq, querySeq.seq, candidate_regions)
+#plot_data = run_smith_waterman_on_regions_for_plot(refSeq.seq, querySeq.seq, candidate_regions)
 
 # Execute function to draw graph
-plot_similarity_dot_plot(plot_data, len(refSeq.seq), len(querySeq.seq), min_score_threshold=min_thres, file_name=out_name)
+#plot_similarity_dot_plot(plot_data, len(refSeq.seq), len(querySeq.seq), min_score_threshold=min_thres, file_name=out_name)
 
 # # # -----------------------------------------

@@ -1,4 +1,3 @@
-import biotite.sequence as biotite
 import sys
 from Bio import SeqIO
 import random

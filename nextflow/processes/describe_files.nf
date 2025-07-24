@@ -11,7 +11,7 @@ process DESCRIBE_FASTA_FILE {
     # Execute the Python script to describe the FASTA file
     # The script outputs a JSON file named after the FASTA file in the current work directory.
     echo "${fasta_file}"
-    python ${file("scripts/describe_fasta.py")} "${fasta_file}" .
+    python3 ${file("scripts/describe_fasta.py")} "${fasta_file}" .
     cp  *.json ${file(params.results_dir)}
     """
 }

@@ -21,6 +21,7 @@ Carpeta script contiene todos los scripts para procesar los archivos.
 
 
 Instrucciones de uso:
+- Entrar a la carpeta 'nextflow'
 - Crear ambiente virtual python
 """
 python3 -m venv python-env
