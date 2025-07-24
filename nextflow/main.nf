@@ -4,6 +4,7 @@ nextflow.enable.dsl=2
 
 // Variables
 params.source_dir = 'DATA-source'          // Directory containing source FASTA files
+params.require = 'requirements.txt'
 params.num_files = 5                 // Number of FASTA files to copy for analysis
 params.kmer_size = 10                 // Kmer size for matching kmer analysis
 params.results_dir = "RESULTS"       // Output directory for all results
@@ -25,33 +26,36 @@ include { GENERATE_GRAPHICS      } from './processes/generate_graphics.nf'
 include { GENERATE_GC_GRAPH      } from './processes/generate_graphics.nf'
 
 workflow {
-    CHECK_AND_INSTALL_LIBS(params.require)
-    copied_files_ch = COPY_FASTA_FILES(CHECK_AND_INSTALL_LIBS.out.completion_signal, params.num_files, params.source_dir)
+	setup_file_ch = Channel.fromPath(params.require)
+        	.ifEmpty { exit 1, "The file specified by params.require does not exist: ${params.require}" }
 
-    copied_files_ch.flatten().set { single_fasta_files_channel }
-	description_results_ch=DESCRIBE_FASTA_FILE(single_fasta_files_channel)
+    CHECK_AND_INSTALL_LIBS(setup_file_ch)
+    //copied_files_ch = COPY_FASTA_FILES(CHECK_AND_INSTALL_LIBS.out.completion_signal, params.num_files, params.source_dir)
+
+    //copied_files_ch.flatten().set { single_fasta_files_channel }
+//description_results_ch=DESCRIBE_FASTA_FILE(single_fasta_files_channel)
     
-    GENERATE_GC_GRAPH(description_results_ch)
+    //GENERATE_GC_GRAPH(description_results_ch)
 	
-    fasta_pairs_ch = copied_files_ch
-                        .collect() // Collects all items from the channel into a single list
-                        .map { files ->
-                            def pairs = []
-                            // Generate unique pairs (file1, file2) for kmer comparison.
-                            // Ensures file1 is lexicographically before file2 to avoid duplicate pairs.
-							for (int i = 0; i < files.size(); i++) {
-                                for (int j = i + 1; j < files.size(); j++) {
-                                    pairs << tuple(files[i], files[j],params.kmer_size)
-									
-                                }
-                            } 
-                            return pairs
-                        }
-				        .flatMap { it }
-                      
-	kmer_results_ch = FIND_MATCHING_KMERS(fasta_pairs_ch)
+   // fasta_pairs_ch = copied_files_ch
+   //                     .collect() // Collects all items from the channel into a single list
+   //                     .map { files ->
+   //                         def pairs = []
+   //                         // Generate unique pairs (file1, file2) for kmer comparison.
+   //                         // Ensures file1 is lexicographically before file2 to avoid duplicate pairs.
+   //     						for (int i = 0; i < files.size(); i++) {
+   //                             for (int j = i + 1; j < files.size(); j++) {
+   //                                 pairs << tuple(files[i], files[j],params.kmer_size)
+   //     								
+   //                             }
+   //                         } 
+   //                         return pairs
+   //                     }
+   //     			        .flatMap { it }
+   //                   
+   //     kmer_results_ch = FIND_MATCHING_KMERS(fasta_pairs_ch)
   
-    GENERATE_GRAPHICS(kmer_results_ch,params.bin_size,params.window_size,params.min_thres)
+   // GENERATE_GRAPHICS(kmer_results_ch,params.bin_size,params.window_size,params.min_thres)
 
     // // Final message to the user upon workflow completion
     // onWorkflowEnd {
