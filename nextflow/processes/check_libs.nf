@@ -12,8 +12,9 @@ process CHECK_AND_INSTALL_LIBS {
     script:
     """
     # Execute the Python script to check and install libraries
-    # python ${file("scripts/check_libs.py")}
-    python ${projectDir}/scripts/check_libs.py ${requirements}
+    python3 -m venv python-nextflow-env
+    source python-nextflow-env/bin/activate
+    python3 ${projectDir}/scripts/check_libs.py ${requirements}
 
     # Create a dummy file to indicate successful completion of this process
     touch libs_checked.txt
