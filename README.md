@@ -21,8 +21,16 @@ Carpeta script contiene todos los scripts para procesar los archivos.
 
 
 Instrucciones de uso:
+- Crear ambiente virtual python
+"""
+python3 -m venv python-env
+"""
+- Activar el ambiente virtual
+"""
+source python-env/bin/activate
+"""
 - Ingresar al archivo nexflow.config.
-- Modificar source_dir con la ruta absoluta del directorio que contiene los archivos FASTA (necesario).
+- Modificar 'source_dir' con la ruta absoluta del directorio que contiene los archivos FASTA (necesario).
 - Modifcar parámetros de análisis (opcional).
 - Ingresar a la carpeta nexflow
 - Executar el comando
@@ -39,7 +47,6 @@ nextflow run main.nf config local
 Execución en HPC
 ```
 nextflow run main.nf confi hpc
-
 ```
 Autor:
 Juan Cantos
