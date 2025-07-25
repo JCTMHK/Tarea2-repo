@@ -1,9 +1,6 @@
 # from Res1_1_native import find_common_kmers, generate_kmers_with_positions
 # from Res1_1_cython import generate_kmers_with_positions_cython, find_common_kmers_cython
-from Bio import SeqIO,Align
-import numpy as np
 import matplotlib.pyplot as plt
-from timeit import default_timer as timer
 import pickle
 import sys
 
@@ -45,9 +42,6 @@ out_name=sys.argv[1].replace(".pkl","")
 
 # Auto-recurrence and cross-recurrence for two sequences
 # ----------------------
-
-import numpy as np
-import matplotlib.pyplot as plt
 
 
 kmer_list=[]
