@@ -24,13 +24,13 @@ Instrucciones de uso:
 - Entrar a la carpeta 'nextflow'
 - Instalar conda y asegurarse de que este corriendo
 - Instalar ambiente conda
-"""
+```
 conda env create -f environment.yml
-"""
+```
 - Activar ambiente conda
-"""
+```
 conda activate pipeline
-"""
+```
 - Ingresar al archivo nexflow.config.
 - Modificar 'source_dir' con la ruta absoluta del directorio que contiene los archivos FASTA (necesario).
 - Modifcar parámetros de análisis (opcional).
