@@ -47,11 +47,6 @@ with open(f"{outName}.pkl", 'wb') as file:
 ref_base_name = os.path.basename(sys.argv[1])
 query_base_name = os.path.basename(sys.argv[2])
 
-# Save selected sequences to file
-with open(f"ref_seq_{ref_base_name}.pkl", 'wb') as file:
-    pickle.dump(refSeq, file)
-with open(f"query_seq_{query_base_name}.pkl", 'wb') as file:
-    pickle.dump(querySeq, file)
 
 # Save kmer dicts
 with open(f"ref_kmer_{ref_base_name}.pkl", 'wb') as file:

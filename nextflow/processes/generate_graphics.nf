@@ -1,13 +1,7 @@
 
 process GENERATE_GRAPHICS {
-    memory = 14.GB
-    cpus = 8 
     input:
-    
-    tuple path(ref_pkl), path(query_pkl), path(kmer_file)
-    val bin_size
-    val window_size
-    val min_thres
+        tuple path(ref_pkl), path(query_pkl), path(kmer_file)
 	
     script:
     """
