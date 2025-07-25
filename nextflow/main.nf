@@ -29,9 +29,10 @@ workflow {
 	setup_file_ch = Channel.fromPath(params.require)
         	.ifEmpty { exit 1, "The file specified by params.require does not exist: ${params.require}" }
 
-    CHECK_AND_INSTALL_LIBS(setup_file_ch)
-    copied_files_ch = COPY_FASTA_FILES(CHECK_AND_INSTALL_LIBS.out.completion_signal, params.num_files, params.source_dir)
+    //CHECK_AND_INSTALL_LIBS(setup_file_ch)
 
+    //copied_files_ch = COPY_FASTA_FILES(CHECK_AND_INSTALL_LIBS.out.completion_signal, params.num_files, params.source_dir)
+    copied_files_ch = COPY_FASTA_FILES(params.num_files, params.source_dir)
     copied_files_ch.flatten().set { single_fasta_files_channel }
     description_results_ch=DESCRIBE_FASTA_FILE(single_fasta_files_channel)
     

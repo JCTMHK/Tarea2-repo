@@ -1,7 +1,7 @@
 
 process COPY_FASTA_FILES {
     input:
-        val trigger_signal
+        //val trigger_signal
         val num_files
         val source_dir
 

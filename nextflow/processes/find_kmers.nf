@@ -22,6 +22,6 @@ process FIND_MATCHING_KMERS {
     # Execute the Python kmer module script
     # It takes two FASTA files, kmer size, and an output directory (current work directory)
     # and generates a text file with matching kmers.
-    python ${file("scripts/kmer_module.py")} ${fasta1} ${fasta2} ${kmer_size}
+    python3 ${file("scripts/kmer_module.py")} ${fasta1} ${fasta2} ${kmer_size}
     """
 }
