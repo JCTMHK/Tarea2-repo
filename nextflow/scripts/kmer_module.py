@@ -52,3 +52,9 @@ with open(f"ref_seq_{ref_base_name}.pkl", 'wb') as file:
     pickle.dump(refSeq, file)
 with open(f"query_seq_{query_base_name}.pkl", 'wb') as file:
     pickle.dump(querySeq, file)
+
+# Save kmer dicts
+with open(f"ref_kmer_{ref_base_name}.pkl", 'wb') as file:
+    pickle.dump(dict1, file)
+with open(f"query_kmer_{query_base_name}.pkl", 'wb') as file:
+    pickle.dump(dict2, file)

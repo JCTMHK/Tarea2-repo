@@ -30,6 +30,10 @@ python3 -m venv python-env
 """
 source python-env/bin/activate
 """
+- Asegurarse de tener una versión de pip actualizada
+"""
+pip install --upgrade pip
+"""
 - Ingresar al archivo nexflow.config.
 - Modificar 'source_dir' con la ruta absoluta del directorio que contiene los archivos FASTA (necesario).
 - Modifcar parámetros de análisis (opcional).

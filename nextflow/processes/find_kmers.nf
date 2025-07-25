@@ -13,15 +13,15 @@ process FIND_MATCHING_KMERS {
     //   - The name of the second seq file
     //   - The path to the generated text file containing matching kmers
     output:
-        tuple path("ref_seq*.pkl"), path("query_seq*.pkl"), path("ref*-v-query*-*kmers.pkl"), emit: kmer_matches
+        tuple path("ref_kmer*.pkl"), path("query_kmer*.pkl"), path("ref*-v-query*-*kmers.pkl"), emit: kmer_matches
 
     // Script to execute
+    //python ${file("scripts/kmer_module.py")} ${fasta1} ${fasta2} ${kmer_size}
     script:
     """
     # Execute the Python kmer module script
     # It takes two FASTA files, kmer size, and an output directory (current work directory)
     # and generates a text file with matching kmers.
-    # echo ${fasta1} ${fasta2} ${kmer_size}
     python ${file("scripts/kmer_module.py")} ${fasta1} ${fasta2} ${kmer_size}
     """
 }

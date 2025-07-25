@@ -1,16 +1,17 @@
 
 process GENERATE_GRAPHICS {
-    
+    memory = 14.GB
+    cpus = 8 
     input:
     
     tuple path(ref_pkl), path(query_pkl), path(kmer_file)
     val bin_size
     val window_size
     val min_thres
-
+	
     script:
     """
-    python3 ${file("scripts/generate_graphics.py")} ${ref_pkl} ${query_pkl} ${kmer_file} ${bin_size} ${window_size} ${min_thres}
+    python3 ${file("scripts/generate_graphics.py")} ${kmer_file}
     cp  *.png ${file(params.results_dir)}
     """
 }
