@@ -22,17 +22,14 @@ Carpeta script contiene todos los scripts para procesar los archivos.
 
 Instrucciones de uso:
 - Entrar a la carpeta 'nextflow'
-- Crear ambiente virtual python
+- Instalar conda y asegurarse de que este corriendo
+- Instalar ambiente conda
 """
-python3 -m venv python-env
+conda env create -f environment.yml
 """
-- Activar el ambiente virtual
+- Activar ambiente conda
 """
-source python-env/bin/activate
-"""
-- Asegurarse de tener una versión de pip actualizada
-"""
-pip install --upgrade pip
+conda activate pipeline
 """
 - Ingresar al archivo nexflow.config.
 - Modificar 'source_dir' con la ruta absoluta del directorio que contiene los archivos FASTA (necesario).

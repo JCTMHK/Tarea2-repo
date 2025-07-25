@@ -4,7 +4,7 @@ nextflow.enable.dsl=2
 
 // Variables
 params.source_dir = 'DATA-source'          // Directory containing source FASTA files
-params.require = 'requirements.txt'
+params.require = 'environment.yml'
 params.num_files = 5                 // Number of FASTA files to copy for analysis
 params.kmer_size = 3                // Kmer size for matching kmer analysis
 params.results_dir = "RESULTS"       // Output directory for all results
@@ -26,8 +26,8 @@ include { GENERATE_GRAPHICS      } from './processes/generate_graphics.nf'
 include { GENERATE_GC_GRAPH      } from './processes/generate_graphics.nf'
 
 workflow {
-	setup_file_ch = Channel.fromPath(params.require)
-        	.ifEmpty { exit 1, "The file specified by params.require does not exist: ${params.require}" }
+	//setup_file_ch = Channel.fromPath(params.require)
+        //	.ifEmpty { exit 1, "The file specified by params.require does not exist: ${params.require}" }
 
     //CHECK_AND_INSTALL_LIBS(setup_file_ch)
 
