@@ -41,14 +41,16 @@ nextflow run main.nf
 ```
 - Cambiar el entorno de execución
 
+## Execución en diferentes perfiles
+
 Execución local
 ```
-nextflow run main.nf config local
+nextflow run main.nf -profile local
 ```
 
 Execución en HPC
 ```
-nextflow run main.nf confi hpc
+nextflow run main.nf -profile hpc
 ```
 Autor:
 Juan Cantos
